@@ -1,11 +1,14 @@
 .mapCanvas {
-  height: 500px;
+  width: 800px;
+  height: 600px;
   /* 防止滚轮事件影响页面滚动 */
   touch-action: none;
 }
 
 .mapContainer {
   position: relative;
+  width: 800px;
+  height: 600px;
   border: 1px solid #d1d5db;
   border-radius: 0.5rem;
   overflow: hidden;
