@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useSlimeChunks } from '../hooks/useSlimeChunks'
 import { type MinecraftVersion } from '../utils/slimeChunk'
 import SlimeMap from '../components/SlimeMap'
@@ -14,6 +14,37 @@ export default function SlimeFinder() {
   const [zoom, setZoom] = useState(3.0)
   const [isLoadingFile, setIsLoadingFile] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // 从 URL 参数加载初始值
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    
+    const urlSeed = params.get('seed')
+    if (urlSeed) {
+      setSeed(urlSeed)
+    }
+    
+    const urlVersion = params.get('version')
+    if (urlVersion === 'java' || urlVersion === 'bedrock') {
+      setVersion(urlVersion)
+    }
+    
+    const urlX = params.get('x')
+    if (urlX) {
+      const x = parseInt(urlX)
+      if (!isNaN(x)) {
+        setCenterX(x)
+      }
+    }
+    
+    const urlZ = params.get('z')
+    if (urlZ) {
+      const z = parseInt(urlZ)
+      if (!isNaN(z)) {
+        setCenterZ(z)
+      }
+    }
+  }, [])
 
   const { slimeChunks, isLoading } = useSlimeChunks({
     seed,
