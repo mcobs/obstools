@@ -11,7 +11,7 @@ export default function SlimeFinder() {
   const [centerX, setCenterX] = useState(0)
   const [centerZ, setCenterZ] = useState(0)
   const [radius, setRadius] = useState(10)
-  const [zoom, setZoom] = useState(1.0)
+  const [zoom, setZoom] = useState(10.0)
   const [isLoadingFile, setIsLoadingFile] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
