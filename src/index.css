@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 全局样式 */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f9fafb;
+    color: #111827;
+    line-height: 1.6;
+  }
+  
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* 自定义组件样式 */
+@layer components {
+  .btn-primary {
+    @apply bg-minecraft-green text-white px-4 py-2 rounded-md hover:bg-minecraft-dark-green transition-colors duration-200 font-medium;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors duration-200 font-medium;
+  }
+  
+  .btn-outline {
+    @apply border border-minecraft-green text-minecraft-green px-4 py-2 rounded-md hover:bg-minecraft-green hover:text-white transition-colors duration-200 font-medium;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-minecraft-green focus:border-transparent;
+  }
+  
+  .slime-chunk {
+    @apply bg-green-500 bg-opacity-30 border-2 border-green-500;
+  }
+  
+  .loading-spinner {
+    @apply animate-spin rounded-full border-4 border-gray-200 border-t-minecraft-green;
+  }
+}
+
+/* 工具类 */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* 兼容性回退 */
+  @supports not (scrollbar-width: none) {
+    .scrollbar-hide {
+      overflow: -moz-scrollbars-none;
+    }
+  }
+  
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .minecraft-texture {
+    background-image: 
+      linear-gradient(45deg, #8B4513 25%, transparent 25%),
+      linear-gradient(-45deg, #8B4513 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #8B4513 75%),
+      linear-gradient(-45deg, transparent 75%, #8B4513 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .mobile-hidden {
+    display: none;
+  }
+  
+  .mobile-full {
+    width: 100%;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s ease-in-out infinite;
+}
