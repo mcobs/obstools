@@ -37,6 +37,11 @@ export default function Home() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* 欢迎区域 */}
       <div className="text-center mb-12 animate-fade-in">
+        <img 
+          src="/logo.svg" 
+          alt="黑曜石工具箱" 
+          className="w-40 h-40 mx-auto mb-6 hover:scale-110 transition-transform duration-300"
+        />
         <h1 className="text-4xl font-bold text-gray-900 mb-4 text-shadow">
           黑曜石工具箱
         </h1>

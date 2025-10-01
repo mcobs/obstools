@@ -17,7 +17,7 @@ export default function Layout({ children }: LayoutProps) {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link to="/" className="flex items-center space-x-2 hover:scale-105 transition-transform duration-200">
-                <div className="w-8 h-8 bg-minecraft-green rounded minecraft-texture"></div>
+                <img src="/logo.svg" alt="黑曜石工具箱" className="w-8 h-8" />
                 <span className="text-xl font-bold text-gray-900 text-shadow">黑曜石工具箱</span>
               </Link>
             </div>
