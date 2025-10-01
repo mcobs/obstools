@@ -6,5 +6,14 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true
+  },
+  define: {
+    // 为浏览器环境提供 Buffer 全局变量
+    'global': 'globalThis',
+  },
+  resolve: {
+    alias: {
+      buffer: 'buffer',
+    }
   }
 })

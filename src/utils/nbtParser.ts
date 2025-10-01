@@ -4,6 +4,8 @@
  */
 
 import * as nbt from 'prismarine-nbt'
+import * as pako from 'pako'
+import { Buffer } from 'buffer'
 
 export interface LevelData {
   seed: string
@@ -27,8 +29,14 @@ export async function parseLevelDat(file: File): Promise<LevelData> {
     const arrayBuffer = await file.arrayBuffer()
     const buffer = new Uint8Array(arrayBuffer)
     
-    // 解析 NBT 数据（level.dat 使用 gzip 压缩）
-    const { parsed } = await nbt.parse(buffer as any)
+    // 使用 pako 解压 gzip 数据（浏览器兼容）
+    const decompressed = pako.ungzip(buffer)
+    
+    // 将 Uint8Array 转换为 Buffer（prismarine-nbt 需要 Buffer）
+    const bufferData = Buffer.from(decompressed)
+    
+    // 解析 NBT 数据
+    const { parsed } = await nbt.parse(bufferData)
     
     // 提取数据
     const data = parsed.value as any

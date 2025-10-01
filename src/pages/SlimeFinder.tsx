@@ -225,31 +225,35 @@ export default function SlimeFinder() {
             </div>
 
             <div className="space-y-2">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".dat"
-                onChange={handleFileChange}
-                className="hidden"
-                aria-label="选择 level.dat 文件"
-              />
-              <button
-                onClick={handleLoadFromSave}
-                disabled={isLoadingFile}
-                className="w-full btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoadingFile ? (
-                  <>
-                    <div className="loading-spinner h-4 w-4"></div>
-                    <span>加载中...</span>
-                  </>
-                ) : (
-                  <>
-                    <Upload className="w-4 h-4" />
-                    <span>从存档加载</span>
-                  </>
-                )}
-              </button>
+              {version === 'java' && (
+                <>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".dat"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    aria-label="选择 level.dat 文件"
+                  />
+                  <button
+                    onClick={handleLoadFromSave}
+                    disabled={isLoadingFile}
+                    className="w-full btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoadingFile ? (
+                      <>
+                        <div className="loading-spinner h-4 w-4"></div>
+                        <span>加载中...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-4 h-4" />
+                        <span>从存档加载</span>
+                      </>
+                    )}
+                  </button>
+                </>
+              )}
               
               <button
                 onClick={() => {

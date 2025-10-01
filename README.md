@@ -49,7 +49,9 @@ npm run preview
 - **Vite** - 构建工具
 - **Tailwind CSS** - 样式框架
 - **React Router** - 路由管理
-- **Prismarine NBT** - NBT 文件解析
+- **Prismarine NBT** - NBT 格式解析
+- **Pako** - Gzip 压缩/解压（浏览器兼容）
+- **Buffer** - Node.js Buffer API 的浏览器 polyfill
 
 ## 📖 使用说明
 
