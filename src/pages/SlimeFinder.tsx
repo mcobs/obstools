@@ -4,6 +4,7 @@ import { type MinecraftVersion } from '../utils/slimeChunk'
 import SlimeMap from '../components/SlimeMap'
 import { Share2, RotateCcw, Upload } from 'lucide-react'
 import { parseLevelDat, validateLevelDatFile } from '../utils/nbtParser'
+import { toast } from '../components/ToastContainer'
 
 export default function SlimeFinder() {
   const [seed, setSeed] = useState('3334823393436897159')
@@ -79,7 +80,7 @@ export default function SlimeFinder() {
 
     // 验证文件
     if (!validateLevelDatFile(file)) {
-      alert('请选择有效的 level.dat 文件！')
+      toast.error('请选择有效的 level.dat 文件！')
       return
     }
 
@@ -110,10 +111,10 @@ export default function SlimeFinder() {
         message += `\n出生点: X=${levelData.spawnX}, Y=${levelData.spawnY}, Z=${levelData.spawnZ}`
       }
       
-      alert(message)
+      toast.success(message, 7000)
     } catch (error) {
       console.error('加载存档失败:', error)
-      alert(`加载失败: ${error instanceof Error ? error.message : '未知错误'}`)
+      toast.error(`加载失败: ${error instanceof Error ? error.message : '未知错误'}`)
     } finally {
       setIsLoadingFile(false)
       // 清空文件选择，允许重复选择同一文件
@@ -259,7 +260,7 @@ export default function SlimeFinder() {
                 onClick={() => {
                   const url = `${window.location.origin}/slime-finder?seed=${seed}&version=${version}&x=${centerX}&z=${centerZ}`
                   navigator.clipboard.writeText(url)
-                  alert('链接已复制到剪贴板！')
+                  toast.success('链接已复制到剪贴板！')
                 }}
                 className="w-full btn-outline flex items-center justify-center space-x-2"
               >

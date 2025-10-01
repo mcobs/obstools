@@ -96,17 +96,23 @@ npm run preview
 ### 项目结构
 ```
 src/
-├── components/      # React 组件
+├── components/         # React 组件
 │   ├── Layout.tsx
-│   └── SlimeMap.tsx
-├── pages/          # 页面组件
+│   ├── SlimeMap.tsx
+│   ├── SlimeMap.module.css
+│   ├── Toast.tsx          # 通知组件
+│   └── ToastContainer.tsx # 通知管理器
+├── pages/             # 页面组件
 │   ├── Home.tsx
 │   └── SlimeFinder.tsx
-├── hooks/          # 自定义 Hooks
+├── hooks/             # 自定义 Hooks
 │   └── useSlimeChunks.ts
-└── utils/          # 工具函数
-    ├── slimeChunk.ts    # 史莱姆算法
-    └── nbtParser.ts     # NBT 解析
+├── utils/             # 工具函数
+│   ├── slimeChunk.ts      # 史莱姆区块算法
+│   └── nbtParser.ts       # NBT 解析
+├── App.tsx            # 应用根组件
+├── main.tsx           # 入口文件
+└── index.css          # 全局样式
 ```
 
 ### 关键算法

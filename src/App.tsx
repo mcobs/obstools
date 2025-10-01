@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import SlimeFinder from './pages/SlimeFinder'
+import ToastContainer from './components/ToastContainer'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/slime-finder" element={<SlimeFinder />} />
         </Routes>
       </Layout>
+      <ToastContainer />
     </Router>
   )
 }
