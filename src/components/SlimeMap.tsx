@@ -24,6 +24,33 @@ export default function SlimeMap({
   const [isDragging, setIsDragging] = useState(false)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
   const [mapOffset, setMapOffset] = useState({ x: 0, y: 0 })
+  const [targetZoom, setTargetZoom] = useState(zoom)
+  const animationFrameRef = useRef<number | null>(null)
+
+  // 平滑缩放动画
+  useEffect(() => {
+    if (Math.abs(targetZoom - zoom) < 0.05) return
+
+    const animate = () => {
+      const diff = targetZoom - zoom
+      const step = diff * 0.2 // 每帧移动20%的距离，更快更流畅
+      
+      if (Math.abs(step) < 0.05) {
+        onZoomChange(targetZoom)
+      } else {
+        onZoomChange(zoom + step)
+        animationFrameRef.current = requestAnimationFrame(animate)
+      }
+    }
+
+    animationFrameRef.current = requestAnimationFrame(animate)
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+    }
+  }, [targetZoom, zoom, onZoomChange])
 
   // 处理滚轮缩放（使用原生事件监听器以支持 passive: false）
   useEffect(() => {
@@ -34,10 +61,11 @@ export default function SlimeMap({
       e.preventDefault()
       e.stopPropagation()
       
-      // 向上滚轮（deltaY < 0）缩小，向下滚轮（deltaY > 0）放大
-      const delta = e.deltaY > 0 ? 1.1 : 0.9
-      const newZoom = Math.max(0.1, Math.min(15.0, zoom * delta))
-      onZoomChange(newZoom)
+      // 向上滚轮（deltaY < 0）放大，向下滚轮（deltaY > 0）缩小
+      const delta = e.deltaY < 0 ? 1.2 : 0.833
+      const newZoom = Math.max(0.5, Math.min(10.0, targetZoom * delta))
+      
+      setTargetZoom(newZoom)
     }
 
     // 添加事件监听器，passive: false 允许 preventDefault
@@ -46,7 +74,12 @@ export default function SlimeMap({
     return () => {
       container.removeEventListener('wheel', handleWheel)
     }
-  }, [zoom, onZoomChange])
+  }, [targetZoom])
+
+  // 同步初始缩放值
+  useEffect(() => {
+    setTargetZoom(zoom)
+  }, [])
 
   // 绘制地图
   useEffect(() => {
@@ -63,8 +96,8 @@ export default function SlimeMap({
     // 清空画布
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    // 计算可见区域
-    const blockSize = Math.max(1, Math.floor(16 / zoom))
+    // 计算可见区域 - zoom越大，每个方块的像素越多（放大效果）
+    const blockSize = zoom
     const centerBlockX = centerX + mapOffset.x
     const centerBlockZ = centerZ + mapOffset.y
 
@@ -99,15 +132,17 @@ export default function SlimeMap({
         
         const screenX = (chunkWorldX - centerBlockX) * blockSize + canvas.width / 2
         const screenZ = (chunkWorldZ - centerBlockZ) * blockSize + canvas.height / 2
+        const chunkPixelSize = 16 * blockSize
         
-        if (screenX >= -16 && screenX <= canvas.width + 16 && 
-            screenZ >= -16 && screenZ <= canvas.height + 16) {
+        // 只要区块有任何部分在可见区域内就绘制
+        if (screenX + chunkPixelSize >= 0 && screenX <= canvas.width && 
+            screenZ + chunkPixelSize >= 0 && screenZ <= canvas.height) {
           ctx.fillStyle = 'rgba(76, 175, 80, 0.3)'
-          ctx.fillRect(screenX, screenZ, 16 * blockSize, 16 * blockSize)
+          ctx.fillRect(screenX, screenZ, chunkPixelSize, chunkPixelSize)
           
           ctx.strokeStyle = '#4CAF50'
           ctx.lineWidth = 2
-          ctx.strokeRect(screenX, screenZ, 16 * blockSize, 16 * blockSize)
+          ctx.strokeRect(screenX, screenZ, chunkPixelSize, chunkPixelSize)
         }
       }
     })
@@ -133,8 +168,8 @@ export default function SlimeMap({
     const deltaY = e.clientY - dragStart.y
     
     setMapOffset(prev => ({
-      x: prev.x - deltaX / Math.max(1, Math.floor(16 / zoom)),
-      y: prev.y - deltaY / Math.max(1, Math.floor(16 / zoom))
+      x: prev.x - deltaX / zoom,
+      y: prev.y - deltaY / zoom
     }))
     
     setDragStart({ x: e.clientX, y: e.clientY })

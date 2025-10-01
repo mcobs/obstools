@@ -10,8 +10,8 @@ export default function SlimeFinder() {
   const [version, setVersion] = useState<MinecraftVersion>('java')
   const [centerX, setCenterX] = useState(0)
   const [centerZ, setCenterZ] = useState(0)
-  const [radius, setRadius] = useState(10)
-  const [zoom, setZoom] = useState(10.0)
+  const [radius, setRadius] = useState(25)
+  const [zoom, setZoom] = useState(3.0)
   const [isLoadingFile, setIsLoadingFile] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
