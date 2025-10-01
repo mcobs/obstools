@@ -57,3 +57,61 @@
   border-radius: 50%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
+.compass {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.compassRose {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compassRose::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #d1d5db 0%, #6b7280 50%, #d1d5db 100%);
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.compassRose::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, #d1d5db 0%, #6b7280 50%, #d1d5db 100%);
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.compassDirection {
+  position: absolute;
+  z-index: 1;
+}
+
+.compassCenter {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+  z-index: 2;
+}

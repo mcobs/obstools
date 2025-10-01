@@ -216,6 +216,25 @@ export default function SlimeMap({
           </div>
         </div>
       </div>
+      
+      {/* 方向指示器 */}
+      <div className={styles.compass}>
+        <div className={styles.compassRose}>
+          <div className={styles.compassDirection} style={{ top: '-8px', left: '50%', transform: 'translateX(-50%)' }}>
+            <span className="text-xs font-bold text-gray-700">北</span>
+          </div>
+          <div className={styles.compassDirection} style={{ right: '-8px', top: '50%', transform: 'translateY(-50%)' }}>
+            <span className="text-xs font-bold text-gray-700">东</span>
+          </div>
+          <div className={styles.compassDirection} style={{ bottom: '-8px', left: '50%', transform: 'translateX(-50%)' }}>
+            <span className="text-xs font-bold text-gray-700">南</span>
+          </div>
+          <div className={styles.compassDirection} style={{ left: '-8px', top: '50%', transform: 'translateY(-50%)' }}>
+            <span className="text-xs font-bold text-gray-700">西</span>
+          </div>
+          <div className={styles.compassCenter}></div>
+        </div>
+      </div>
     </div>
   )
 }
