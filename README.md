@@ -8,15 +8,29 @@
 
 ## ✨ 主要功能
 
-### 🗺️ 史莱姆区块查找器
+### 🎮 生存实用工具
+
+#### 🗺️ 史莱姆区块查找器
 - ✅ 支持 Java 版和基岩版
 - ✅ 精确的算法实现（基于官方源码）
-- ✅ 交互式地图（拖拽、缩放）
+- ✅ 交互式地图（拖拽、缩放、方向指示）
 - ✅ 从存档加载（支持上传 level.dat 文件）
 - ✅ 自动识别种子和出生点坐标
 
+#### 📐 坐标计算器
+- ✅ 主世界与下界坐标互相转换
+- ✅ 支持 1:8 比例计算
+- ✅ 双向转换功能
+- ✅ 支持小数坐标
+
+### 🖥️ 服务器实用工具
+
+#### 💬 MOTD 生成器
+- ✅ 服务器 MOTD 在线生成
+- ✅ 支持 AMOTD 插件联动
+- 🔗 外部链接：[motd.mcobs.cn](https://motd.mcobs.cn/)
+
 ### 🔧 计划中的功能
-- 📍 坐标计算器
 - 🌍 生物群系查找器
 - 🧭 更多实用工具...
 
@@ -49,24 +63,11 @@ npm run preview
 - **Vite** - 构建工具
 - **Tailwind CSS** - 样式框架
 - **React Router** - 路由管理
+- **Zustand** - 状态管理
 - **Prismarine NBT** - NBT 格式解析
 - **Pako** - Gzip 压缩/解压（浏览器兼容）
 - **Buffer** - Node.js Buffer API 的浏览器 polyfill
-
-## 📖 使用说明
-
-### 史莱姆区块查找器
-
-1. **输入种子**：输入你的世界种子（数字或字符串）
-2. **选择版本**：选择 Java 版或基岩版
-3. **设置坐标**：输入你想查找的中心坐标（可选）
-4. **查看地图**：绿色区域即为史莱姆区块
-5. **从存档加载**：直接上传 `level.dat` 文件自动获取种子
-
-**注意**：
-- Java 版和基岩版的史莱姆区块位置不同（即使种子相同）
-- level.dat 位置：`.minecraft/saves/[世界名称]/level.dat`
-- 史莱姆在 Y≤39 的史莱姆区块中生成（Java版）
+- **Lucide React** - 图标库
 
 ## 🔗 相关链接
 
@@ -91,28 +92,67 @@ npm run preview
 - 基于社区反向工程的 MT19937 (Mersenne Twister) 实现
 - 特性：基岩版史莱姆区块位置在所有世界中固定，不随种子变化
 
-## 📝 开发说明
+## 📝 软件架构
 
-### 项目结构
+### 架构设计
+
+本项目采用**前端单页应用（SPA）**架构，所有计算和处理均在客户端完成，无需后端服务器。
+
+**架构特点**：
+- 🎯 **纯前端应用** - 零后端依赖，可部署到任何静态托管服务
+- 🔒 **隐私保护** - 用户数据不上传，所有计算本地完成
+- ⚡ **高性能** - 无网络延迟，即时响应
+- 📦 **轻量化** - 无需数据库，无服务器成本
+
+### 技术架构层次
+
+```
+┌─────────────────────────────────────┐
+│         用户界面层 (UI Layer)        │
+│  React Components + Tailwind CSS    │
+├─────────────────────────────────────┤
+│        路由层 (Routing Layer)        │
+│         React Router v6             │
+├─────────────────────────────────────┤
+│        状态管理层 (State Layer)       │
+│      Zustand + React Hooks          │
+├─────────────────────────────────────┤
+│        业务逻辑层 (Logic Layer)       │
+│   算法实现 + 数据处理 + NBT解析      │
+├─────────────────────────────────────┤
+│        工具层 (Utility Layer)        │
+│  Pako (Gzip) + Buffer + Prismarine  │
+└─────────────────────────────────────┘
+```
+
+### 项目目录结构
+
 ```
 src/
-├── components/         # React 组件
-│   ├── Layout.tsx
-│   ├── SlimeMap.tsx
-│   ├── SlimeMap.module.css
-│   ├── Toast.tsx          # 通知组件
-│   └── ToastContainer.tsx # 通知管理器
-├── pages/             # 页面组件
-│   ├── Home.tsx
-│   └── SlimeFinder.tsx
-├── hooks/             # 自定义 Hooks
-│   └── useSlimeChunks.ts
-├── utils/             # 工具函数
-│   ├── slimeChunk.ts      # 史莱姆区块算法
-│   └── nbtParser.ts       # NBT 解析
-├── App.tsx            # 应用根组件
-├── main.tsx           # 入口文件
-└── index.css          # 全局样式
+├── components/              # UI 组件
+│   ├── Layout.tsx          # 页面布局（导航栏+页脚）
+│   ├── SlimeMap.tsx        # 史莱姆区块地图组件
+│   ├── SlimeMap.module.css # 地图样式
+│   ├── Toast.tsx           # 通知提示组件
+│   └── ToastContainer.tsx  # 通知容器（状态管理）
+│
+├── pages/                   # 页面组件
+│   ├── Home.tsx            # 首页（展示介绍）
+│   ├── ToolsList.tsx       # 工具列表页（分类展示）
+│   ├── SlimeFinder.tsx     # 史莱姆区块查找器
+│   └── CoordinateCalculator.tsx  # 坐标计算器
+│
+├── hooks/                   # 自定义 Hooks
+│   └── useSlimeChunks.ts   # 史莱姆区块计算逻辑
+│
+├── utils/                   # 工具函数
+│   ├── slimeChunk.ts       # 史莱姆算法（Java/基岩版）
+│   └── nbtParser.ts        # NBT 文件解析（level.dat）
+│
+├── App.tsx                 # 应用根组件（路由配置）
+├── main.tsx                # 应用入口（DOM 挂载）
+├── index.css               # 全局样式
+└── vite-env.d.ts           # TypeScript 类型声明
 ```
 
 ### 关键算法
