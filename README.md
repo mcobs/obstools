@@ -141,7 +141,13 @@ chunkSeed = (chunkX * 0x1f1f1f1f) ^ chunkZ
 
 ## 📄 许可证
 
-本项目遵循 MIT 许可证
+本项目遵循 GPL-3.0 许可证
+
+Copyright (C) 2025 黑曜石论坛 (mcobs.cn)
+
+本程序是自由软件：你可以根据自由软件基金会发布的 GNU 通用公共许可证（第3版或更高版本）的条款重新分发和/或修改它。
+
+完整许可证文本请查看 [LICENSE](./LICENSE) 文件或访问 <https://www.gnu.org/licenses/gpl-3.0.html>
 
 ## 🤝 贡献
 

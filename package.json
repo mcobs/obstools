@@ -2,6 +2,7 @@
   "name": "obstools",
   "version": "1.0.0",
   "description": "黑曜石工具箱 - 我的世界实用工具集 | 黑曜石论坛(mcobs.cn)官方工具站",
+  "license": "GPL-3.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
