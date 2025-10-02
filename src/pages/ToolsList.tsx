@@ -13,11 +13,11 @@ export default function ToolsList() {
     },
     {
       title: '坐标计算器',
-      description: '计算两点之间的距离和角度',
+      description: '主世界与下界坐标互相转换',
       icon: Calculator,
       path: '/coordinate-calculator',
       color: 'bg-blue-500',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       title: '生物群系查找器',

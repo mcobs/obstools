@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import ToolsList from './pages/ToolsList'
 import SlimeFinder from './pages/SlimeFinder'
+import CoordinateCalculator from './pages/CoordinateCalculator'
 import ToastContainer from './components/ToastContainer'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/tools" element={<ToolsList />} />
           <Route path="/slime-finder" element={<SlimeFinder />} />
+          <Route path="/coordinate-calculator" element={<CoordinateCalculator />} />
         </Routes>
       </Layout>
       <ToastContainer />
