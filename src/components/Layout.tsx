@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Home, Map } from 'lucide-react'
+import { Home, Grid3x3 } from 'lucide-react'
 
 interface LayoutProps {
   children: ReactNode
@@ -35,15 +35,15 @@ export default function Layout({ children }: LayoutProps) {
                 <span>首页</span>
               </Link>
               <Link
-                to="/slime-finder"
+                to="/tools"
                 className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                  location.pathname === '/slime-finder' 
+                  location.pathname === '/tools' 
                     ? 'bg-minecraft-green text-white shadow-md' 
                     : 'text-gray-700 hover:bg-gray-100 hover:text-minecraft-green'
                 }`}
               >
-                <Map className="w-4 h-4" />
-                <span>史莱姆区块查找器</span>
+                <Grid3x3 className="w-4 h-4" />
+                <span>工具列表</span>
               </Link>
             </div>
           </div>
